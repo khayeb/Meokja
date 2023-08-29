@@ -7,6 +7,6 @@
 4. Enter command: `npm start`
 
 
-For online viewing, visit https://meokja.vercel.app/
+For live demo, visit https://meokja.vercel.app/
 
 
