@@ -13,7 +13,7 @@ export default function Heading() {
                 </section>
 
                 <section className="hero-image">
-                    <img src={require('../../../assets/food/foodmenu-banner.png')} alt="Meokja's cuisine"></img>
+                    <img src={require('../../../assets/food/menu-banner.png')} alt="Meokja's cuisine"></img>
                 </section>
             </article>
       </header>

@@ -6,7 +6,7 @@ export default function Footer() {
         <li className="img-footer">
           <img
             src={require("../assets/footer-logo.png")}
-            alt="Meokja logo"
+            alt="Little Lemon logo"
           ></img>
         </li>
         <li className="contact">

@@ -5,429 +5,413 @@ import Routing from "./components/Routing";
 import Footer from "./components/Footer";
 import logo from './img.png';
 import "./App.css";
+import PropTypes from 'prop-types';
 
-const greetingMessage = 'Annyeong! ~ 👋 Welcome to Meokja! This is Chef-nim, your virtual assistant. What would you like to order? 😊';
-const snacksAndDrinksMessage = 'Would you like to add fries or a sundae to your order?';
-const drinksMessage = 'Would you like to have iced tea or softdrinks as your beverage?';
+const snacksMessage = 'Would you like to have fries or sundae as your snacks?';
+const drinksMessage = 'Would you like to have iced-tea or softdrinks as your beverage?';
 const sizeMessage = 'Would you like to upgrade your snacks and drinks to a medium or large size?';
-const addSundae = 'Would you like to add a delicious sundae to your order today? Our sundaes are made with the finest ingredients and come in a variety of flavors. They\'re the perfect way to finish off your meal!'
+const chickenSizeMessage = 'Would you like to upgrade your snacks and drinks to a medium or large size?';
+const addSundae = 'Would you like to add a delicious sundae to your order today? 🍦';
 const orderDone = 'Has your order been completed?'
 const addPie = 'Would you like to add some pie to your order? 🥧'
 
-const steps = [{
-    id: '1',    
-    message: greetingMessage,    
-    trigger: 'menu',  
-},{    
-    id: 'menu',    
-    options: [      
-        { value: 'Burger Meal', label: 'Burger Meal 🍔', trigger: 'burger-meal' },
-        { value: 'Pasta Meal', label: 'Pasta Meal 🍝 ', trigger: 'pasta-meal' },
-        { value: 'Chicken Meal', label: 'Chicken Meal 🍗', trigger: 'chicken-meal' },
-    ],
-},{
-    id: 'burger-meal',
-    message: 'You have selected Burger Meal. ' + snacksAndDrinksMessage,
-    trigger: 'burger-snacks',
-},{
-    id: 'burger-snacks',
-    options: [
-        { value: 'Fries', label: 'Add Fries 🍟', trigger: 'burger-fries' },
-        { value: 'Sundae', label: 'Add Sundae 🍦', trigger: 'burger-sundae' },
-    ],
-},{
-    id: 'burger-fries',
-    message: 'You have added fries to your order. ' + drinksMessage,
-    trigger: 'burger-drinks',
-},{
-    id: 'burger-sundae',
-    message: 'You have added sundae to your order. ' + drinksMessage,
-    trigger: 'burger-drinks',
-},{
-    id: 'burger-drinks',
-    options: [
-        { value: 'Iced-Tea', label: 'Iced-Tea', trigger: 'burger-icedtea' },
-        { value: 'Softdrinks', label: 'Softdrinks', trigger: 'burger-softdrinks' },
-    ],
-},{
-    id: 'burger-icedtea',
-    message: 'You have added iced-tea to your order.' + sizeMessage,
-    trigger: 'burger-size'
-},{
-    id: 'burger-softdrinks',
-    message: 'You have added softdrinks to your order.' + sizeMessage,
-    trigger: 'burger-size'
-},{
-    id: 'burger-size',
-    options: [
-        { value: 'Medium', label: 'Medium', trigger: 'burger-add' },
-        { value: 'Large', label: 'Large', trigger: 'burger-add' },
-    ],
-},{
-    id: 'burger-add',
-    message: addSundae,
-    trigger: 'burger-addSundae',
-},{
-    id: 'burger-addSundae',
-    options: [
-        { value: 'Sundae', label: 'Yes', trigger: 'order-pie' },
-        { value: ' ', label: 'No', trigger: 'order-pie' },
-    ],
-},
-
-
-{
-    id: 'pasta-meal',
-    message: 'You have selected Pasta Meal. ' + snacksAndDrinksMessage,
-    trigger: 'pasta-snacks',
-},{
-    id: 'pasta-snacks',
-    options: [
-    { value: 'Fries', label: 'Add Fries 🍟', trigger: 'pasta-fries' },
-    { value: 'Sundae', label: 'Add Sundae 🍦', trigger: 'pasta-sundae' },
-    ],
-},{
-    id: 'pasta-fries',
-    message: 'You have added fries to your order. ' + drinksMessage,
-    trigger: 'pasta-drinks',
-},{
-    id: 'pasta-sundae',
-    message: 'You have added sundae to your order. ' + drinksMessage,
-    trigger: 'pasta-drinks',
-},{
-    id: 'pasta-drinks',
-    options: [
-        { value: 'Iced-Tea', label: 'Iced-Tea', trigger: 'pasta-icedtea' },
-        { value: 'Softdrinks', label: 'Softdrinks', trigger: 'pasta-softdrinks' },
-    ],
-},{
-    id: 'pasta-icedtea',
-    message: 'You have added iced-tea to your order.' + sizeMessage,
-    trigger: 'pasta-size'
-},{
-    id: 'pasta-softdrinks',
-    message: 'You have added softdrinks to your order.' + sizeMessage,
-    trigger: 'pasta-size'
-},{
-    id: 'pasta-size',
-    options: [
-        { value: 'Medium', label: 'Medium', trigger: 'pasta-add' },
-        { value: 'Large', label: 'Large', trigger: 'pasta-add' },
-    ],
-},
-{
-    id: 'pasta-add',
-    message: addSundae,
-    trigger: 'burger-addSundae',
-},{
-    id: 'pasta-addSundae',
-    options: [
-        { value: 'Sundae', label: 'Yes', trigger: 'order-pie' },
-        { value: ' ', label: 'No', trigger: 'order-pie' },
-    ],
-},
-
-
-{
-    id: 'chicken-meal',
-    message: 'You have selected Chicken Meal. ' + drinksMessage,
-    trigger: 'chicken-drinks',
-},{
-    id: 'chicken-drinks',
-    options: [
-        { value: 'Iced-Tea', label: 'Iced-Tea', trigger: 'chicken-icedtea' },
-        { value: 'Softdrinks', label: 'Softdrinks', trigger: 'chicken-softdrinks' },
-    ],
-},{
-    id: 'chicken-icedtea',
-    message: 'You have added iced-tea to your order. ' + sizeMessage,
-    trigger: 'chicken-size'
-},{
-    id: 'chicken-softdrinks',
-    message: 'You have added softdrinks to your order. ' + sizeMessage,
-    trigger: 'chicken-size'
-},{
-    id: 'chicken-size',
-    options: [
-        { value: 'Medium', label: 'Medium', trigger: 'chicken-sundae' },
-        { value: 'Large', label: 'Large', trigger: 'chicken-sundae' },
-    ],
-},
-{
-    id: 'chicken-sundae',
-    message: 'You have added softdrinks to your order. ' + addSundae,
-    trigger: 'chicken-addSundae'
-},
-{
-    id: 'chicken-addSundae',
-    options: [
-        { value: 'Sundae', label: 'Yes', trigger: 'order-pie' },
-        { value: ' ', label: 'No', trigger: 'order-pie' },
-    ],
-},
-{
-    id: 'order-pie',
-    message: addPie,
-    trigger: 'add-pie',
-},{
-    id: 'add-pie',
-    options: [
-        { value: 'Pie', label: 'Yes', trigger: 'order-complete' },
-        { value: ' ', label: 'No', trigger: 'order-complete' },
-    ],
-},{
-    id: 'order-complete',
-    message: orderDone,
-    trigger: 'order-status',
-},
-{
-    id: 'order-status',
-    options: [
-      { value: 'yes', label: 'Yes', trigger: 'order-summary' },
-      { value: 'no', label: 'No', trigger: 'addMore' },
-    ],
-},
-{
-    id: 'addMore',
-    message: 'What else would you like to add?',
-    trigger: 'add-meal',
-},
-{    
-    id: 'add-meal',    
-    options: [      
-        { value: 'Burger Meal', label: 'Burger Meal 🍔', trigger: 'new-burger-meal' },
-        { value: 'Pasta Meal', label: 'Pasta Meal 🍝', trigger: 'new-pasta-meal' },
-        { value: 'Chicken Meal', label: 'Chicken Meal 🍗', trigger: 'new-chicken-meal' },
-    ],
-},
-{
-    id: 'new-burger-meal',
-    message: 'You have selected Burger Meal. ' + snacksAndDrinksMessage,
-    trigger: 'new-burger-snacks',
-},{
-    id: 'new-burger-snacks',
-    options: [
-        { value: 'Fries', label: 'Add Fries 🍟', trigger: 'new-burger-fries' },
-        { value: 'Sundae', label: 'Add Sundae 🍦', trigger: 'new-burger-sundae' },
-    ],
-},{
-    id: 'new-burger-fries',
-    message: 'You have added fries to your order. ' + drinksMessage,
-    trigger: 'new-burger-drinks',
-},{
-    id: 'new-burger-sundae',
-    message: 'You have added sundae to your order. ' + drinksMessage,
-    trigger: 'new-burger-drinks',
-},{
-    id: 'new-burger-drinks',
-    options: [
-        { value: 'Iced-Tea', label: 'Iced-Tea', trigger: 'new-burger-icedtea' },
-        { value: 'Softdrinks', label: 'Softdrinks', trigger: 'new-burger-softdrinks' },
-    ],
-},{
-    id: 'new-burger-icedtea',
-    message: 'You have added iced-tea to your order.' + sizeMessage,
-    trigger: 'new-burger-size'
-},{
-    id: 'new-burger-softdrinks',
-    message: 'You have added softdrinks to your order.' + sizeMessage,
-    trigger: 'new-burger-size'
-},{
-    id: 'new-burger-size',
-    options: [
-        { value: 'Medium', label: 'Medium', trigger: 'new-burger-add' },
-        { value: 'Large', label: 'Large', trigger: 'new-burger-add' },
-    ],
-},{
-    id: 'new-burger-add',
-    message: addSundae,
-    trigger: 'new-burger-addSundae',
-},{
-    id: 'new-burger-addSundae',
-    options: [
-        { value: 'Sundae', label: 'Yes', trigger: 'order-pie' },
-        { value: ' ', label: 'No', trigger: 'order-pie' },
-    ],
-},
-
-
-{
-    id: 'new-pasta-meal',
-    message: 'You have selected Pasta Meal. ' + snacksAndDrinksMessage,
-    trigger: 'new-pasta-snacks',
-},{
-    id: 'new-pasta-snacks',
-    options: [
-    { value: 'Fries', label: 'Add Fries 🍟', trigger: 'new-pasta-fries' },
-    { value: 'Sundae', label: 'Add Sundae 🍦', trigger: 'new-pasta-sundae' },
-    ],
-},{
-    id: 'new-pasta-fries',
-    message: 'You have added fries to your order. ' + drinksMessage,
-    trigger: 'new-pasta-drinks',
-},{
-    id: 'new-pasta-sundae',
-    message: 'You have added sundae to your order. ' + drinksMessage,
-    trigger: 'new-pasta-drinks',
-},{
-    id: 'new-pasta-drinks',
-    options: [
-        { value: 'Iced-Tea', label: 'Iced-Tea', trigger: 'new-pasta-icedtea' },
-        { value: 'Softdrinks', label: 'Softdrinks', trigger: 'new-pasta-softdrinks' },
-    ],
-},{
-    id: 'new-pasta-icedtea',
-    message: 'You have added iced-tea to your order.' + sizeMessage,
-    trigger: 'new-pasta-size'
-},{
-    id: 'new-pasta-softdrinks',
-    message: 'You have added softdrinks to your order.' + sizeMessage,
-    trigger: 'new-pasta-size'
-},{
-    id: 'new-pasta-size',
-    options: [
-        { value: 'Medium', label: 'Medium', trigger: 'new-pasta-add' },
-        { value: 'Large', label: 'Large', trigger: 'new-pasta-add' },
-    ],
-},
-{
-    id: 'new-pasta-add',
-    message: addSundae,
-    trigger: 'new-burger-addSundae',
-},{
-    id: 'new-pasta-addSundae',
-    options: [
-        { value: 'Sundae', label: 'Yes', trigger: 'new-order-pie' },
-        { value: ' ', label: 'No', trigger: 'new-order-pie' },
-    ],
-},
-
-
-{
-    id: 'new-chicken-meal',
-    message: 'You have selected Chicken Meal. ' + drinksMessage,
-    trigger: 'new-chicken-drinks',
-},{
-    id: 'new-chicken-drinks',
-    options: [
-        { value: 'Iced-Tea', label: 'Iced-Tea', trigger: 'new-chicken-icedtea' },
-        { value: 'Softdrinks', label: 'Softdrinks', trigger: 'new-chicken-softdrinks' },
-    ],
-},{
-    id: 'new-chicken-icedtea',
-    message: 'You have added iced-tea to your order. ' + sizeMessage,
-    trigger: 'new-chicken-size'
-},{
-    id: 'new-chicken-softdrinks',
-    message: 'You have added softdrinks to your order. ' + sizeMessage,
-    trigger: 'new-chicken-size'
-},{
-    id: 'new-chicken-size',
-    options: [
-        { value: 'Medium', label: 'Medium', trigger: 'new-chicken-sundae' },
-        { value: 'Large', label: 'Large', trigger: 'new-chicken-sundae' },
-    ],
-},
-{
-    id: 'new-chicken-sundae',
-    message: 'You have added softdrinks to your order. ' + addSundae,
-    trigger: 'new-chicken-addSundae'
-},
-{
-    id: 'new-chicken-addSundae',
-    options: [
-        { value: 'Sundae', label: 'Yes', trigger: 'new-order-pie' },
-        { value: ' ', label: 'No', trigger: 'new-order-pie' },
-    ],
-},
-{
-    id: 'new-order-pie',
-    message: addPie,
-    trigger: 'new-add-pie',
-},{
-    id: 'new-add-pie',
-    options: [
-        { value: 'Pie', label: 'Yes', trigger: 'order-complete' },
-        { value: ' ', label: 'No', trigger: 'order-complete' },
-    ],
-},
-{
-  id: 'order-summary',
-  message: (props) => {
-    const { steps } = props;
-    const order = {
-      meal: steps['menu'].value,
-      snacks: steps['burger-snacks']?.value || steps['pasta-snacks']?.value  || '',
-      drinks: steps['burger-drinks']?.value || steps['pasta-drinks']?.value || steps['chicken-drinks']?.value || '',
-      size: steps['burger-size']?.value || steps['pasta-size']?.value || steps['chicken-size']?.value || '',
-      sundae: steps['burger-addSundae']?.value || steps['pasta-addSundae']?.value || steps['chicken-addSundae']?.value || '',
-      pie: steps['add-pie']?.value || '',
-      addMeal: steps['add-meal'].value,
-      addSnacks: steps['new-burger-snacks']?.value || steps['new-pasta-snacks']?.value  || '',
-      addDrinks:steps['new-burger-drinks']?.value || steps['new-pasta-drinks']?.value || steps['new-chicken-drinks']?.value || '',
-      addSize: steps['new-burger-size']?.value || steps['new-pasta-size']?.value || steps['new-chicken-size']?.value || '',
-      addSundaeOrder: steps['new-burger-addSundae']?.value || steps['new-pasta-addSundae']?.value || steps['new-chicken-addSundae']?.value || '',
-      addPieOrder:steps['new-add-pie']?.value || '',
-    };
-    return `You have ordered: \n
-    ${order.meal}, \n
-    ${order.snacks}, \n
-    ${order.drinks} (${order.size}), \n
-    ${order.sundae}, \n
-    ${order.pie}, \n
-    ${order.addMeal}, \n
-    ${order.addSnacks}, \n
-    ${order.addDrinks} (${order.addSize}), \n
-    ${order.addSundaeOrder}, \n
-    ${order.addPieOrder}`; 
-  },
-  trigger: 'end-order',
-},{
-  id: 'end-order',
-    message: 'Awesome! Your orders complete!',
-    end: true,
-},
-];
-
- 
 // Creating our own theme
 const theme = {
-    background: 'white',
-    headerBgColor: '#d31927',
-    headerFontSize: '18px',
-    botBubbleColor: '#8a000a',
-    headerFontColor: 'white',
-    botFontColor: 'white',
-    userBubbleColor: '#f4ce14',
-    userFontColor: 'white',
-    fontSize: '14px',
+  background: '#f5f8fb',
+  headerBgColor: '#8a000a',
+  headerFontSize: '20px',
+  botBubbleColor: '#8a000a',
+  headerFontColor: 'white',
+  botFontColor: 'white',
+  userBubbleColor: '#d31927',
+  userFontColor: 'white',
 };
- 
+
 // Set some properties of the bot
 const config = {
-    botAvatar: logo,
-    floating: true,
+  botAvatar: logo,
+  floating: true,
 };
- 
-function App() {
-    return (
-        <div className="App">
-          <Navbar />
-          <Routing />
-          <Footer />
-            <ThemeProvider theme={theme}>
-                <ChatBot
- 
-                    // This appears as the header
-                    // text for the chat bot
-                    headerTitle="Chef-nim 👨‍🍳"
-                    steps={steps}
-                    {...config}
- 
-                />
-            </ThemeProvider>
-        </div>
-    );
+
+
+
+const orders = []
+function SummaryOfOrder() {
+  return (
+    <div style={{ width: "100%" }}>
+      <h5>Order: 001</h5>
+      <h4>Summary of Orders</h4>
+      <table>
+        <tbody>
+          {orders.map((item, index) => (
+            <tr key={index}>
+              <td>{item}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  );
 }
- 
-export default App;
+
+SummaryOfOrder.propTypes = {
+  steps: PropTypes.object,
+};
+
+SummaryOfOrder.defaultProps = {
+  steps: undefined,
+};
+
+const addOrder = (value) =>{
+  orders.push(value);
+  return console.log(orders);
+}
+
+var i = 1;
+function ChefNim(props){
+  const steps = [{
+    id: '1',
+    message: 'Annyeong! ~ 👋 Welcome to Meokja! I\'m Chef-nim, and I\'m here to help you place your order. 😊 Please choose from the following option to start.',
+    trigger: 'mealType'
+  }, {
+    id: 'mealType',
+    options: [
+      { value: 'Burger Meal', label: 'Burger Meal 🍔', 
+      trigger: () => {
+        addOrder('Meal Set #' + i + ': Burger Meal');
+        i++;
+        return 'burgerMeal'}},
+      { value: 'Pasta Meal', label: 'Pasta Meal 🍝 ',
+      trigger: () => {
+        addOrder('Meal Set #' + i + ': Pasta Meal');
+        i++;
+        return 'pastaMeal'}},
+      { value: 'Chicken Meal', label: 'Chicken Meal 🍗',
+      trigger: () => {
+        addOrder('Meal Set #' + i + ': Chicken Meal');
+        i++;
+        return 'chickenMeal'}},
+    ],
+  }, {
+    id: 'burgerMeal',
+    message: 'You have selected Burger Meal. \n' + snacksMessage,
+    trigger: 'burgerSnacks',
+  }, {
+    id: 'burgerSnacks',
+    options: [
+      { value: 'Fries', label: 'Add Fries 🍟',
+      trigger: () => {
+        addOrder('with Fries');
+        return 'burgerFries'}},
+      { value: 'Sundae', label: 'Add Sundae 🍦',
+      trigger: () => {
+        addOrder('with Sundae');
+        return 'burgerSundae'}},
+    ],
+  }, {
+    id: 'burgerFries',
+    message: 'You have added Fries to your order. \n' + drinksMessage,
+    trigger: 'burgerFDrinks',
+  }, {
+    id: 'burgerSundae',
+    message: 'You have added Sundae to your order. \n' + drinksMessage,
+    trigger: 'burgerSDrinks',
+  }, {
+    id: 'burgerFDrinks',
+    options: [
+      { value: 'Iced-Tea', label: 'Iced-Tea',
+      trigger: () => {
+        addOrder('\nIced Tea');
+        return 'burgerFSize' }},
+      { value: 'Softdrinks', label: 'Softdrinks',
+      trigger: () => {
+        addOrder('\nSoftdrinks');
+        return 'burgerFSize'}},
+    ],
+  }, {
+    id: 'burgerSDrinks',
+    options: [
+      { value: 'Iced-Tea', label: 'Iced-Tea',
+      trigger: () => {
+        addOrder('Iced Tea');
+        return 'burgerSDSSize' }},
+      { value: 'Softdrinks', label: 'Softdrinks',
+      trigger: () => {
+        addOrder('Softdrinks');
+        return 'burgerSDSSize' }},
+    ],
+  }, {
+    id: 'burgerFSize',
+    message: sizeMessage,
+    trigger: 'burgerFDSize',
+  }, {
+    id: 'burgerFDSize',
+    options: [
+      { value: 'Medium Size', label: 'Medium Size',
+      trigger: () => {
+        addOrder('Medium Size');
+        return 'additionalSundae' }},
+      { value: 'Large Size', label: 'Large Size',
+      trigger: () => {
+        addOrder('Large Size');
+        return 'additionalSundae' }},
+    ],
+  }, {
+    id: 'burgerSDSSize',
+    message: sizeMessage,
+    trigger: 'burgerSDSize',
+  }, {
+    id: 'burgerSDSize',
+    options: [
+      { value: 'Medium Size', label: 'Medium Size',
+      trigger: () => {
+        addOrder('Medium Size');
+        return 'orderPie' }},
+      { value: 'Large Size', label: 'Large Size',
+      trigger: () => {
+        addOrder('Large Size');
+        return 'orderPie' }},
+    ],
+  }, {
+    id: 'additionalSundae',
+    message: addSundae,
+    trigger: 'burgerFDSundae',
+  }, {
+    id: 'burgerFDSundae',
+    options: [
+      { value: 'with Sundae', label: 'Yes',
+      trigger: () => {
+        addOrder('with Additional Sundae');
+        return 'orderPie' }},
+      { value: ' ', label: 'No',
+      trigger: () => {
+        addOrder(' ');
+        return 'orderPie' }},
+    ],
+  },
+  
+  //Pasta Meal
+  {
+    id: 'pastaMeal',
+    message: 'You have selected Pasta Meal. ' + snacksMessage,
+    trigger: 'pastaSnacks',
+  }, {
+    id: 'pastaSnacks',
+    options: [
+      { value: 'Fries', label: 'Add Fries 🍟',
+      trigger: () => {
+        addOrder('with Fries');
+        return 'pastaFries' }},
+      { value: 'Sundae', label: 'Add Sundae 🍦',
+      trigger: () => {
+        addOrder('with Sundae');
+        return 'pastaSundae' }},
+    ],
+  }, {
+    id: 'pastaFries',
+    message: 'You have added Fries to your order. \n' + drinksMessage,
+    trigger: 'pastaFDrinks',
+  }, {
+    id: 'pastaSundae',
+    message: 'You have added Sundae to your order. \n' + drinksMessage,
+    trigger: 'pastaSDrinks',
+  }, {
+    id: 'pastaFDrinks',
+    options: [
+      { value: 'Iced-Tea', label: 'Iced-Tea',
+      trigger: () => {
+        addOrder('Iced Tea');
+        return 'pastaFSize' }},
+      { value: 'Softdrinks', label: 'Softdrinks',
+      trigger: () => {
+        addOrder('Softdrinks');
+        return 'pastaFSize' }},
+    ],
+  }, {
+    id: 'pastaSDrinks',
+    options: [
+      { value: 'Iced-Tea', label: 'Iced-Tea',
+      trigger: () => {
+        addOrder('Iced Tea');
+        return 'pastaSSize' }},
+      { value: 'Softdrinks', label: 'Softdrinks',
+      trigger: () => {
+        addOrder('Softdrinks');
+        return 'pastaSSize' }},
+    ],
+  }, {
+    id: 'pastaFSize',
+    message: sizeMessage,
+    trigger: 'pastaFDSize',
+  }, {
+    id: 'pastaFDSize',
+    options: [
+      { value: 'Medium Size', label: 'Medium Size',
+      trigger: () => {
+        addOrder('Medium Size');
+        return 'additionalPSundae' }},
+      { value: 'Large Size', label: 'Large Size',
+      trigger: () => {
+        addOrder('Large Size');
+        return 'additionalPSundae' }},
+    ],
+  }, {
+    id: 'pastaSSize',
+    message: sizeMessage,
+    trigger: 'pastaSDSize',
+  }, {
+    id: 'pastaSDSize',
+    options: [
+      { value: 'Medium Size', label: 'Medium Size',
+      trigger: () => {
+        addOrder('Medium Size');
+        return 'orderPie' }},
+      { value: 'Large Size', label: 'Large Size',
+      trigger: () => {
+        addOrder('Large Size');
+        return 'orderPie' }},
+    ],
+  }, {
+    id: 'additionalPSundae',
+    message: addSundae,
+    trigger: 'pastaFDSundae',
+  }, {
+    id: 'pastaFDSundae',
+    options: [
+      { value: 'with Sundae', label: 'Yes',
+      trigger: () => {
+        addOrder('with Additional Sundae');
+        return 'orderPie' }},
+      { value: ' ', label: 'No',
+      trigger: () => {
+        addOrder(' ');
+        return 'orderPie' }},
+    ],
+  },
+  
+  // Chicken Meal
+  {
+    id: 'chickenMeal',
+    message: 'You have selected Chicken Meal. ' + drinksMessage,
+    trigger: 'chickenDrinks',
+  }, {
+    id: 'chickenDrinks',
+    options: [
+      { value: 'Iced-Tea', label: 'Iced-Tea',
+      trigger: () => {
+        addOrder('Iced Tea');
+        return 'chickenIcedtea' }},
+      { value: 'Softdrinks', label: 'Softdrinks',
+      trigger: () => {
+        addOrder('Softdrinks');
+        return 'chickenSoftdrinks' }},
+    ],
+  }, {
+    id: 'chickenIcedtea',
+    message: 'You have added iced-tea to your order.' + chickenSizeMessage,
+    trigger: 'chickenSize'
+  }, {
+    id: 'chickenSoftdrinks',
+    message: 'You have added softdrinks to your order.' + chickenSizeMessage,
+    trigger: 'chickenSize'
+  }, {
+    id: 'chickenSize',
+    options: [
+      { value: 'Medium Size', label: 'Medium',
+      trigger: () => {
+        addOrder('Medium Size');
+        return 'additionalCSundae' }},
+      { value: 'Large Size', label: 'Large',
+      trigger: () => {
+        addOrder('Large Size');
+        return 'additionalCSundae' }},
+    ],
+  }, {
+    id: 'additionalCSundae',
+    message: addSundae,
+    trigger: 'chickenAddSundae',
+  }, {
+    id: 'chickenAddSundae',
+    options: [
+      { value: 'with Sundae', label: 'Yes',
+      trigger: () => {
+        addOrder('with Additional Sundae');
+        return 'orderPie' }},
+      { value: ' ', label: 'No',
+      trigger: () => {
+        addOrder('');
+        return 'orderPie' }},
+    ],
+  },
+  
+  //Additional Pie
+  {
+    id: 'orderPie',
+    message: addPie,
+    trigger: 'additionalPie',
+  }, {
+    id: 'additionalPie',
+    options: [
+      { value: 'with Pie', label: 'Yes',
+      trigger: () => {
+        addOrder('with Pie');
+        return 'orderComplete' }},
+      { value: ' ', label: 'No',
+      trigger: () => {
+        addOrder('');
+        return 'orderComplete' }},
+    ],
+  },
+  
+  //Orders Complete?
+  {
+    id: 'orderComplete',
+    message: orderDone,
+    trigger: 'orderStatus',
+  }, {
+    id: 'orderStatus',
+    options: [
+      { value: 'yes', label: 'Yes', trigger: 'orderSummary' },
+      { value: 'no', label: 'No', trigger: 'addMore' },
+    ],
+  },
+  
+  // No? NEW MEAL
+  {
+    id: 'addMore',
+    message: 'What else would you like to add?',
+    trigger: 'mealType',
+  }, {
+    id: 'orderSummary',
+    component: <SummaryOfOrder />,
+    asMessage: true,
+    trigger: 'endOrder',
+  },{
+    id: 'totalPrice',
+    component: <calculatePrice/>,
+    asMessage: true,
+    trigger: 'endOrder',
+  },{
+    id: 'endOrder',
+    message: 'Your orders complete! Please present your order number to the cashier to pay for your order. 맛있게 드세요!~ 🤞',
+    end: true,
+  },
+  ]; 
+  return(
+    <div className="App">
+      <Navbar />
+      <Routing />
+      <Footer />
+      <ThemeProvider theme={theme}>
+        <ChatBot steps={steps} floating={true}
+          headerTitle="Chef-nim 👨‍🍳"
+
+          {...config}
+        />
+        
+      </ThemeProvider>
+    </div>
+  );
+}
+
+export default ChefNim;

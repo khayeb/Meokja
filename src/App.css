@@ -1,9 +1,7 @@
 * {
-  font-family: "Markazi Text", "Karla", serif;
+  font-family: "Arial","Markazi Text", "Karla", serif;
 }
-.chatbot-message {
-  font-size: 20px; /* Change this value to increase/decrease the font size */
-}
+
 label,
 input,
 select,
